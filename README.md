@@ -2,7 +2,9 @@
 
 NEXUS is DHC's mission-control layer over Hermes Agent.
 
-It does not run a second agent loop. Hermes owns execution, tools, profiles, sessions, approvals, delegation, scheduling, and channels. The Unified LLM Memory Layer owns cross-tool transcript history, retrieval, and citations. NEXUS owns operational focus, observability, handoffs, and navigation into the native control surfaces.
+It does not run a second agent loop. Hermes owns execution, tools, profiles, sessions, approvals, delegation, scheduling, and channels. NEXUS owns operational focus, observability, handoffs, and navigation into Hermes's native control surfaces.
+
+Unified LLM Memory Layer is a separate project and is not a NEXUS component or dependency. Hermes may expose it globally through MCP, but the current NEXUS plugin does not call it, store its data, or display its state.
 
 ## Current build
 
@@ -40,9 +42,7 @@ Verify the repository:
 NEXUS mission-control UI
     ├── priorities, observed status, queues, approvals, handoffs
     └── native Hermes surfaces
-            ├── execution, sessions, profiles, tools, cron, Kanban
-            └── Unified Memory via MCP
-                    └── cross-tool transcripts, retrieval, citations
+            └── execution, sessions, profiles, tools, cron, Kanban
 ```
 
 See [docs/architecture.md](docs/architecture.md) for ownership rules and [NEXUS_HANDOFF.md](NEXUS_HANDOFF.md) for the current development handoff.

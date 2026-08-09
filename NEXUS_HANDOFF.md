@@ -13,8 +13,8 @@ git pull
 ## Current architecture
 
 - Hermes is the execution authority.
-- Unified LLM Memory Layer is the shared project-history authority.
-- NEXUS is a native, read-only mission-control UX.
+- NEXUS is a native, read-only mission-control UX over Hermes.
+- Unified LLM Memory Layer is a separate project, not a NEXUS component or dependency.
 - The standalone Next.js app is retained only as a visual prototype.
 
 Do not add a second chat/session engine, model router, Kanban database, transcript vault, generic command runner, or publishing endpoint.
@@ -50,17 +50,11 @@ Then use **Settings → Plugins → Rescan** in Hermes Desktop.
 - Production Next.js build passes.
 - Installed plugin matches repository source by SHA-256.
 
-## Unified Memory
+## Separate Unified Memory project
 
-Windows Hermes has an enabled native MCP named `unified_memory` that launches the WSL backend directly. `hermes mcp test unified_memory` connects and discovers five tools.
+Windows Hermes independently has an enabled MCP named `unified_memory` that launches `/home/jobi/unified-llm-router`. That MCP belongs to the Hermes profile, not to this repository.
 
-The memory backend remains at:
-
-```text
-/home/jobi/unified-llm-router
-```
-
-Known limitation: current retrieval is lexical and can miss synonyms until hybrid semantic retrieval is added.
+The current NEXUS plugin does not call Unified Memory, require its service, store its transcripts, or visualize its status. Any future NEXUS integration requires a separate product decision and must remain optional.
 
 ## Next slice
 

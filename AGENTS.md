@@ -13,8 +13,8 @@ Build NEXUS as DHC's mission-control layer over Hermes Agent. Optimize for buyin
 ## Ownership boundaries
 
 - Hermes owns execution, tools, sessions, profiles, approvals, delegation, cron, Kanban execution, skills, plugins, MCP, and channels.
-- Unified LLM Memory Layer owns cross-tool transcript ingestion, retrieval, citations, and shared project history.
 - NEXUS owns priorities, observability, project/workspace UX, prepared/observed/verified handoffs, approval queues, and navigation into native Hermes surfaces.
+- External projects—including Unified LLM Memory Layer—remain independent repositories and runtimes. NEXUS must not depend on or absorb them without an explicit product decision.
 
 Do not add a second chat/session engine, model router, transcript store, generic command runner, MCP installer, or independent Kanban state machine.
 
@@ -54,7 +54,7 @@ Keep secrets in `.env`; never commit them. Use supported Hermes interfaces rathe
 
 1. Real Hermes state, not decorative status.
 2. Prepared → dispatched → observed → verified or blocked handoffs with evidence.
-3. Unified Memory through native MCP, not a duplicate memory database.
+3. Keep external projects optional and behind supported Hermes interfaces.
 4. Small operational improvements that DHC actually uses.
 5. Close the current slice before opening another subsystem.
 

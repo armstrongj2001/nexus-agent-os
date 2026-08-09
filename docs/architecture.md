@@ -4,7 +4,7 @@
 
 NEXUS is a control plane, not an agent runtime.
 
-The test for every feature is simple: if Hermes or the Unified Memory Layer already owns the state or execution lifecycle, NEXUS observes or links to it instead of creating a competing implementation.
+The test for every feature is simple: if Hermes already owns the state or execution lifecycle, NEXUS observes or links to it instead of creating a competing implementation. External projects stay separate unless an explicit product decision adds an optional integration.
 
 ## Ownership
 
@@ -21,17 +21,9 @@ Authoritative for:
 - skills, plugins, and MCP administration
 - channels and message delivery
 
-### Unified LLM Memory Layer
+### External projects
 
-Authoritative for:
-
-- cross-tool transcript ingestion
-- normalized project history
-- retrieval and surrounding context
-- citations
-- project ledgers and context packs
-
-It remains provider- and tool-independent. NEXUS does not copy its transcripts into a local vault.
+Unified LLM Memory Layer and other services are outside the NEXUS product boundary. They retain their own repositories, runtimes, storage, and roadmaps. NEXUS has no default dependency on them.
 
 ### NEXUS
 
@@ -60,23 +52,11 @@ The desktop plugin is read-only by construction. Contract tests reject:
 
 When NEXUS eventually needs a mutation, it must call a bounded Hermes capability with an explicit approval record. No generic `/run`, `/send`, `/publish`, `/deploy`, `/install`, or `/tunnel` endpoints.
 
-## Unified Memory integration
+## Independent Hermes MCP services
 
-Windows Hermes launches the WSL memory server as a native stdio MCP:
+The Windows Hermes profile may run external MCP services such as `unified_memory`. Those services belong to Hermes configuration and remain independent of NEXUS.
 
-```text
-wsl.exe -d Ubuntu-22.04 --cd /home/jobi/unified-llm-router/backend .venv/bin/python -m app.mcp_server
-```
-
-This keeps retrieval in Hermes's tool layer rather than teaching the NEXUS UI to query Postgres or duplicate MCP behavior.
-
-The currently exposed tools are:
-
-- `list_projects`
-- `search_memory`
-- `list_conversations`
-- `read_conversation`
-- `save_transcript`
+The current NEXUS plugin does not call Unified Memory, query its database, display its status, or require it to function. A future integration must be explicitly approved, optional, read-only at first, and routed through supported Hermes interfaces.
 
 ## Next implementation slice
 
